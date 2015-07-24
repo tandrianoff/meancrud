@@ -6,11 +6,14 @@ var mongoose = require('mongoose');
 var dbConfig = require('./config/db');
 mongoose.connect(dbConfig.url);
 
+var port = process.env.PORT || 8080; // set our port
+
 // configure app to use body-parser to get data from a POST
 app.use(bodyParser.urlencoded({externded: true}));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080; // set our port
+// set the static files location
+app.use(express.static(__dirname + '/public'));
 
 var router = express.Router();
 
@@ -55,6 +58,7 @@ router.route('/property')
 
 	// Get to view all properties
 	.get(function(req, res) {
+		console.log("Fetching all properties...");
 		Property.find(function(err,properties) {
 			if (err) {
 				res.send(err);
@@ -68,6 +72,10 @@ router.route('/property')
 
 // All routes prefixed with /api
 app.use('/api', router);
+
+app.get('*', function(req, res) {
+	res.sendfile('./public/index.html'); // load public/index.html file
+});
 
 // server start
 // ============================================================================
