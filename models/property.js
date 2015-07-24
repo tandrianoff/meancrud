@@ -7,7 +7,8 @@ var PropertySchema = new Schema({
 	price: Number,
 	available: Boolean,
 	listedDate: {type: Date, default: Date.now},
-	shownDate: {type: Date, default: Date.now}
+	shownDate: Date,
+	shown: Boolean
 });
 
 module.exports = mongoose.model('Property', PropertySchema);
