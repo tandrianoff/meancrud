@@ -1,0 +1,10 @@
+<p>{{test}}</p>
+<h2>Property and Seller List</h2>
+<table>
+	<tr ng-repeat="property in properties">
+		<td>{{property.sellerLastName}}</td>
+		<td>{{property.sellerFirstName}}</td>
+		<td>{{property.price | currency}}</td>
+		<td>{{property.available}}</td>
+	</tr>
+</table> 
