@@ -1,0 +1,10 @@
+{
+  "name": "meancrud",
+  "description": "Sample CRUD application on a MEAN stack",
+  "version": "0.1.0",
+  "dependencies": {
+    "angular": "latest",
+    "angular-route": "latest",
+    "bootstrap": "latest"
+  }
+}

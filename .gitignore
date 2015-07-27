@@ -2,3 +2,4 @@ config/db.js
 node_modules/*
 *.log
 .gitignore~
+public/lib/*
