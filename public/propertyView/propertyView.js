@@ -13,6 +13,21 @@ module.controller('PropertyCtrl',['$scope','Property', function($scope, Property
 	$scope.sortType = 'sellerLastName';
 	$scope.sortReverse = false;
 
+	$scope.addPropertyData = {};
+
+	$scope.addProperty = function() {
+		Property.post($scope.addPropertyData)
+			.success(function(data) {
+				$scope.addPropertyData = {};
+				console.log(data);
+			})
+			.error(function(data) {
+				console.log('Error: '+ data);
+			});
+
+		$scope.addPropertyData = {};
+	};
+
 	// Extract data from promise provided by
 	// Property service
 	Property.get().success(function(data) {

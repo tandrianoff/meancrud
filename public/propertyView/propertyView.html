@@ -1,35 +1,59 @@
-<p>{{test}}</p>
-<h2>Property and Seller List</h2>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<td>
-				<a ng-click="sortType = 'sellerLastName'; sortReverse = !sortReverse">
-					Seller Last Name
-				</a>
-			</td>
-			<td>
-				<a ng-click="sortType = 'sellerFirstName'; sortReverse = !sortReverse">
-					Seller First Name
-				</a>
-			</td>
-			<td>
-				<a ng-click="sortType = 'price'; sortReverse = !sortReverse">
-					Price
-				</a>
-			</td>
-			<td>
-				<a ng-click="sortType = 'available'; sortReverse = !sortReverse">
-					Available
-				</a>
-			</td>
-		</tr>
-	</thead>
-	<tr ng-repeat="property in properties| orderBy:sortType:sortReverse">
-		
-		<td><a href="#property">{{property.sellerLastName}}</a></td>
-		<td>{{property.sellerFirstName}}</td>
-		<td>{{property.price | currency}}</td>
-		<td>{{property.available}}</td>
-	</tr>
-</table> 
+<div class="row">
+	<div class="col-sm-8 col-sm-offset-1">
+		<form>
+			<div class="form-group">
+				<label>Seller First Name</label>
+				<input type="text" ng-model="addPropertyData.sellerFirstName">
+			</div>
+			<div class="form-group">
+				<label>Seller Last Name</label>
+				<input type="text" ng-model="addPropertyData.sellerLastName">
+			</div>
+			<div class="form-group">
+				<label>Price</label>
+				<input type="text" ng-model="addPropertyData.price">
+			</div>
+			<div class="form-group">
+				<input type="checkbox" ng-model="addPropertyData.available" checked="checked"> Available
+			</div>
+			<button type="submit" value="Add" ng-click="addProperty($scope)">Add</button>
+		</form>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-8 col-sm-offset-1">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td>
+						<a ng-click="sortType = 'sellerLastName'; sortReverse = !sortReverse">
+							Seller Last Name
+						</a>
+					</td>
+					<td>
+						<a ng-click="sortType = 'sellerFirstName'; sortReverse = !sortReverse">
+							Seller First Name
+						</a>
+					</td>
+					<td>
+						<a ng-click="sortType = 'price'; sortReverse = !sortReverse">
+							Price
+						</a>
+					</td>
+					<td>
+						<a ng-click="sortType = 'available'; sortReverse = !sortReverse">
+							Available
+						</a>
+					</td>
+				</tr>
+			</thead>
+			<tr ng-repeat="property in properties| orderBy:sortType:sortReverse">
+				
+				<td>{{property.sellerLastName}}</td>
+				<td>{{property.sellerFirstName}}</td>
+				<td>{{property.price | currency}}</td>
+				<td>{{property.available}}</td>
+			</tr>
+		</table> 
+	</div>
+</div>

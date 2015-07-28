@@ -5,6 +5,10 @@ module.factory('Property', ['$http',function($http) {
 		// call to get all properties.
 		get : function() {
 			return $http.get('/api/property');
+		},
+
+		post : function(formData) {
+			return $http.post('/api/property', formData);
 		}
 	};
 }]);
