@@ -17,11 +17,13 @@ app.use(express.static(__dirname + '/public'));
 
 var router = express.Router();
 
-// middleware used for all requests
+// example of middleware used for all requests
+/*
 router.use(function(req, res, next) {
 	console.log('Something is happening.');
 	next();
 });
+*/
 
 // test route
 router.get('/', function(req, res) {
@@ -32,7 +34,7 @@ router.get('/', function(req, res) {
 //require('./routes/routes')(router); // configures routes in another file
 
 // Database models
-// TODO: This won't always be here. 
+// TODO: Eventually move routes out to separate file(s)
 var Property = require('./models/property');
 
 router.route('/property')
@@ -68,7 +70,64 @@ router.route('/property')
 		});
 	});
 
-// TODO: add id specific routes, other objects. Showing, agent, etc.
+router.route('/property/:property_id')
+	
+	.get(function(req, res) {
+		console.log('GET property ID '+req.params.property_id);
+		Property.findById(req.params.property_id, function(err, property) {
+			if (err) {
+				res.send(err);
+			}
+
+			res.json(property);
+		}); 
+	})
+
+	.put(function(req, res) {
+		console.log('PUT property ID '+req.params.property_id);
+		// console.log(req); // TODO: Why won't form-data work? It's empty in body
+		Property.findById(req.params.property_id, function(err, property)  {
+			if (err) {
+				console.log(err);
+				res.send(err);
+			}
+
+			if (req.body.sellerFirstName) {
+				property.sellerFirstName = req.body.sellerFirstName;
+			}
+
+			if (req.body.sellerLastName) {
+				property.sellerLastName = req.body.sellerLastName;
+			}
+
+			if (req.body.price) {
+				property.price = req.body.price;
+			}
+
+			// TODO: Update more properties, dates
+			property.save(function(err, product, numUpdated) {
+				if (err) {
+					console.log(err);
+					res.send(err);
+				}
+
+				res.json({message:numUpdated+' Property updated.'})
+			});
+		});
+	})
+
+	.delete(function(req,res) {
+		console.log('DELETE property ID '+req.params.property_id);
+		Property.findByIdAndRemove(req.params.property_id, function(err) {
+			if (err) {
+				res.send(err);
+			} else {
+				res.json({message:'Successfully removed'})
+			}
+		});
+	});
+
+// TODO: add other objects. Showing, agent, etc.
 
 // All routes prefixed with /api
 app.use('/api', router);
