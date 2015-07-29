@@ -9,7 +9,7 @@ mongoose.connect(dbConfig.url);
 var port = process.env.PORT || 8080; // set our port
 
 // configure app to use body-parser to get data from a POST
-app.use(bodyParser.urlencoded({externded: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // set the static files location
