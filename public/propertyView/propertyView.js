@@ -10,16 +10,27 @@ module.config(['$routeProvider', function($routeProvider) {
 module.controller('PropertyCtrl',['$scope','Property', function($scope, Property) {
 	$scope.test = "This is a test.";
 
+	// Property table sort parameters
 	$scope.sortType = 'sellerLastName';
 	$scope.sortReverse = false;
 
 	$scope.addPropertyData = {};
+
+	function updateProperties() {
+	
+		// Extract data from promise provided by
+		// Property service
+		Property.get().success(function(data) {
+			$scope.properties = data;
+		});
+	}
 
 	$scope.addProperty = function() {
 		Property.post($scope.addPropertyData)
 			.success(function(data) {
 				$scope.addPropertyData = {};
 				console.log(data);
+				updateProperties();
 			})
 			.error(function(data) {
 				console.log('Error: '+ data);
@@ -28,9 +39,5 @@ module.controller('PropertyCtrl',['$scope','Property', function($scope, Property
 		$scope.addPropertyData = {};
 	};
 
-	// Extract data from promise provided by
-	// Property service
-	Property.get().success(function(data) {
-		$scope.properties = data;
-	});
+	updateProperties();
 }]);
