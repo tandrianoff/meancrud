@@ -14,7 +14,12 @@ module.controller('PropertyCtrl',['$scope','Property', function($scope, Property
 	$scope.sortType = 'sellerLastName';
 	$scope.sortReverse = false;
 
-	$scope.addPropertyData = {};
+	function resetPropertyData() {
+		$scope.addPropertyData = {};
+		$scope.addPropertyData.available = true;
+	}
+
+	resetPropertyData();
 
 	function updateProperties() {
 	
@@ -28,8 +33,7 @@ module.controller('PropertyCtrl',['$scope','Property', function($scope, Property
 	$scope.addProperty = function() {
 		Property.post($scope.addPropertyData)
 			.success(function(data) {
-				$scope.addPropertyData = {};
-				console.log(data);
+				resetPropertyData();
 				updateProperties();
 			})
 			.error(function(data) {
