@@ -53,6 +53,7 @@
 				<td>{{property.sellerFirstName}}</td>
 				<td>{{property.price | currency}}</td>
 				<td>{{property.available}}</td>
+				<td><a ng-click="removeProperty(property._id)"><span class="glyphicon glyphicon-remove"></span></a></td>
 			</tr>
 		</table> 
 	</div>

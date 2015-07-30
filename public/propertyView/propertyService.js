@@ -9,6 +9,10 @@ module.factory('Property', ['$http',function($http) {
 
 		post : function(formData) {
 			return $http.post('/api/property', formData);
+		},
+
+		delete : function(id) {
+			return $http.delete('/api/property/'+id);
 		}
 	};
 }]);

@@ -33,6 +33,7 @@ module.controller('PropertyCtrl',['$scope','Property', function($scope, Property
 	$scope.addProperty = function() {
 		Property.post($scope.addPropertyData)
 			.success(function(data) {
+				console.log(data);
 				resetPropertyData();
 				updateProperties();
 			})
@@ -44,4 +45,15 @@ module.controller('PropertyCtrl',['$scope','Property', function($scope, Property
 	};
 
 	updateProperties();
+
+	$scope.removeProperty = function(id) {
+		Property.delete(id)
+			.success(function(data) {
+				console.log(data);
+				updateProperties();
+			})
+			.error(function(data, status) {
+				console.log('Error: '+status+' '+ data);
+			});
+	};
 }]);
