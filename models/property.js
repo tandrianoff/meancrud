@@ -8,7 +8,8 @@ var PropertySchema = new Schema({
 	available: Boolean,
 	listedDate: {type: Date, default: Date.now},
 	shownDate: Date,
-	shown: Boolean
+	shown: Boolean,
+	images:  [{ type: Schema.Types.ObjectId, ref: 'PropertyImage' }]
 });
 
 module.exports = mongoose.model('Property', PropertySchema);
