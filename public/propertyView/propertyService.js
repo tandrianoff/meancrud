@@ -13,6 +13,10 @@ module.factory('Property', ['$http',function($http) {
 
 		delete : function(id) {
 			return $http.delete('/api/property/'+id);
+		},
+
+		getId : function(id) {
+			return $http.get('/api/property/'+id);
 		}
 	};
 }]);

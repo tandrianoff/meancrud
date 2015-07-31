@@ -36,6 +36,7 @@ router.get('/', function(req, res) {
 // Database models
 // TODO: Eventually move routes out to separate file(s)
 var Property = require('./models/property');
+var PropertyImage = require('./models/propertyImage');
 
 router.route('/property')
 
