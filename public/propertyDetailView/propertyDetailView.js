@@ -12,7 +12,6 @@ module.config(['$routeProvider', function($routeProvider) {
 module.controller('PropertyDetailCtrl',['$scope','$routeParams','Property',
 	function($scope, $routeParams, Property) {
 		var propertyId = $routeParams.property_id;
-		$scope.test = "This is a test of "+propertyId;
 
 		Property.getId(propertyId)
 			.success(function(data){
@@ -23,3 +22,15 @@ module.controller('PropertyDetailCtrl',['$scope','$routeParams','Property',
 			});
 	}	
 ]);
+
+/*
+TODO: pretty date format
+function formatDate(date) {
+
+}
+
+
+module.filter('date', function() {
+  return formatDate;
+});
+*/

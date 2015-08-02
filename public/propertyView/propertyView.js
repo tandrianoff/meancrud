@@ -19,8 +19,6 @@ module.controller('PropertyCtrl',['$scope','Property', function($scope, Property
 		$scope.addPropertyData.available = true;
 	}
 
-	resetPropertyData();
-
 	function updateProperties() {
 	
 		// Extract data from promise provided by
@@ -30,6 +28,11 @@ module.controller('PropertyCtrl',['$scope','Property', function($scope, Property
 		});
 	}
 
+	// Page setup
+	resetPropertyData();
+	updateProperties();
+
+	// functions to use API
 	$scope.addProperty = function() {
 		Property.post($scope.addPropertyData)
 			.success(function(data) {
@@ -43,8 +46,6 @@ module.controller('PropertyCtrl',['$scope','Property', function($scope, Property
 
 		$scope.addPropertyData = {};
 	};
-
-	updateProperties();
 
 	$scope.removeProperty = function(id) {
 		Property.delete(id)
