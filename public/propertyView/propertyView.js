@@ -1,4 +1,4 @@
-var module = angular.module('propertyView',[]);
+var module = angular.module('propertyView',['ui.bootstrap']);
 
 module.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/property', {
@@ -9,6 +9,13 @@ module.config(['$routeProvider', function($routeProvider) {
 
 module.controller('PropertyCtrl',['$scope','Property', function($scope, Property) {
 	$scope.test = "This is a test.";
+
+	$scope.properties = [];
+
+	$scope.filteredProperties = []
+	,$scope.currentPage = 1
+	,$scope.numPerPage = 10
+	,$scope.maxSize = 5;
 
 	// Property table sort parameters
 	$scope.sortType = 'sellerLastName';
@@ -25,6 +32,13 @@ module.controller('PropertyCtrl',['$scope','Property', function($scope, Property
 		// Property service
 		Property.get().success(function(data) {
 			$scope.properties = data;
+
+			$scope.$watch("currentPage + numPerPage", function() {
+				var begin = (($scope.currentPage - 1)*$scope.numPerPage)
+				, end = begin + $scope.numPerPage;
+
+				$scope.filteredProperties = $scope.properties.slice(begin, end);
+			});
 		});
 	}
 

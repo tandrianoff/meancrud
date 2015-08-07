@@ -47,7 +47,7 @@
 					</td>
 				</tr>
 			</thead>
-			<tr ng-repeat="property in properties| orderBy:sortType:sortReverse">
+			<tr ng-repeat="property in filteredProperties| orderBy:sortType:sortReverse">
 				
 				<td>{{property.sellerLastName}}</td>
 				<td>{{property.sellerFirstName}}</td>
@@ -57,5 +57,11 @@
 				<td><a ng-href="#property/{{property._id}}">view</a></td>
 			</tr>
 		</table> 
+		<pagination
+		 ng-model="currentPage"
+		 total-items="properties.length"
+		 max-size="maxSize"
+		 boundary-links="true">
+		</pagination>
 	</div>
 </div>
