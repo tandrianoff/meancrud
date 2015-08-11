@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var multiparty = require('multiparty');
 
 var mongoose = require('mongoose');
 var dbConfig = require('./config/db');
@@ -37,6 +38,25 @@ router.get('/', function(req, res) {
 // TODO: Eventually move routes out to separate file(s)
 var Property = require('./models/property');
 var PropertyImage = require('./models/propertyImage');
+
+router.route('/upload')
+	.post(function(req,res) {
+		console.log("POST to Upload");
+		
+		var form = new multiparty.Form();
+		form.parse(req, function(err, fields, files) {
+			Object.keys(files).forEach(function(name) {
+			    console.log('got file named ' + name);
+			    var file = files[name];
+			    var path = file[0].path;
+			    console.log("Path is "+path + " file is "+file[0]);
+			    Object.keys(file).forEach(function(name) {
+			    	console.log(name);
+			    });
+			    // TODO: save file to database
+			  });
+		});
+	});
 
 router.route('/property')
 

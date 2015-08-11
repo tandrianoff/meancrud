@@ -1,6 +1,6 @@
 'use strict';
 
-var module = angular.module('propertyDetailView',['ngRoute']);
+var module = angular.module('propertyDetailView',['ngRoute','ngFileUpload']);
 
 module.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/property/:property_id', {
@@ -9,8 +9,8 @@ module.config(['$routeProvider', function($routeProvider) {
 	});
 }]);
 
-module.controller('PropertyDetailCtrl',['$scope','$routeParams','Property',
-	function($scope, $routeParams, Property) {
+module.controller('PropertyDetailCtrl',['$scope','$routeParams','Property', 'Upload',
+	function($scope, $routeParams, Property, Upload) {
 		var propertyId = $routeParams.property_id;
 
 		Property.getId(propertyId)
@@ -20,6 +20,23 @@ module.controller('PropertyDetailCtrl',['$scope','$routeParams','Property',
 			.error(function(data){
 				console.log('Error: '+data);
 			});
+
+		$scope.$watch('file', function (file) {
+      		$scope.upload($scope.file);
+    	});
+
+    	$scope.upload = function(file) {
+    		Upload.upload({
+    			url: 'api/upload',
+    			file: file
+    		})
+    		.success(function (data) {
+    			console.log("File uploaded: "+data);
+    		})
+    		.error(function(data) {
+    			console.log("File upload failed: "+data);
+    		});
+    	};
 	}	
 ]);
 
